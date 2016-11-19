@@ -6,7 +6,6 @@
         <artifactId>dependencies</artifactId>
         <groupId>org.leo.zeng.framework</groupId>
         <version>SNAPSHOT</version>
-        <relativePath>../dependencies/pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
