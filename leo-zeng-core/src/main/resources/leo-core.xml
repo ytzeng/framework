@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd  
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<description>leo core配置</description>
+	<!-- 消息配置 -->
+	<bean id="messageSource" class="org.leo.zeng.core.support.MultipleMessageSource">
+		<property name="defaultEncoding" value="UTF-8" />
+		<property name="useCodeAsDefaultMessage" value="true" />
+		<property name="basenames">
+			<array>
+				<value>classpath*:/i18n/*</value>
+			</array>
+		</property>
+	</bean>
+	<bean id="msa" class="org.leo.zeng.core.support.MessageSourceAccessor">
+		<constructor-arg ref="messageSource" />
+	</bean>
+	<!-- Spring 工具类注册 -->
+	<bean class="org.leo.zeng.core.util.SpringUtil" />
+	<!-- 代理数据源配置 -->
+	<bean id="proxyDataSource" class="org.jdbcdslog.ConnectionPoolDataSourceProxy">
+		<property name="targetDSDirect" ref="dataSource" />
+	</bean>
+	<!-- 事务配置 -->
+	<bean id="txManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="proxyDataSource" />
+	</bean>
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="*" read-only="false" propagation="REQUIRED"
+				rollback-for="java.lang.Exception" />
+		</tx:attributes>
+	</tx:advice>
+</beans>

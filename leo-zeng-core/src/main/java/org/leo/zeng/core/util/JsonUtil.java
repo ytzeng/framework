@@ -1,12 +1,9 @@
 package org.leo.zeng.core.util;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.TimeZone;
 import org.leo.zeng.core.enums.DateFormat;
 import org.leo.zeng.core.exception.ServiceException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -15,7 +12,6 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 
 public class JsonUtil {
-    private static Logger logger = LoggerFactory.getLogger(JsonUtil.class);
     private static final ObjectMapper objectMapper;
     static {
         objectMapper = new ObjectMapper();

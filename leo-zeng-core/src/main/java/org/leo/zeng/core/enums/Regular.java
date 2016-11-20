@@ -1,5 +1,7 @@
 package org.leo.zeng.core.enums;
 
+import java.util.regex.Pattern;
+
 /**
  * 正则表达式
  */
@@ -43,6 +45,14 @@ public enum Regular {
 
     public String value() {
         return value;
+    }
+
+    public Pattern pattern() {
+        return Pattern.compile(value);
+    }
+
+    public Pattern pattern(int flag) {
+        return Pattern.compile(value, flag);
     }
 
 }
