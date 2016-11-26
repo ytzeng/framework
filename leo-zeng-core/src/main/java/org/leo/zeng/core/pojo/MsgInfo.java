@@ -1,5 +1,7 @@
 package org.leo.zeng.core.pojo;
 
+import org.leo.zeng.core.consts.MessageCode;
+
 public class MsgInfo {
     private String field;
     private String code;
@@ -13,6 +15,10 @@ public class MsgInfo {
 
     public MsgInfo(String code, String message) {
         this(null, code, message);
+    }
+
+    public MsgInfo() {
+        this(MessageCode.S9999, MessageCode.DEFAULT_ERROR);
     }
 
     public String getField() {

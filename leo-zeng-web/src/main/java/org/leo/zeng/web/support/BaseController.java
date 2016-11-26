@@ -1,4 +1,4 @@
-package org.leo.zeng.framework.web.support;
+package org.leo.zeng.web.support;
 
 import java.util.Locale;
 import java.util.regex.Matcher;
@@ -7,16 +7,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.StringUtils;
-import org.leo.zeng.core.config.SecurityConfig;
-import org.leo.zeng.core.config.SysConfig;
 import org.leo.zeng.core.consts.MessageCode;
+import org.leo.zeng.core.consts.SysConstants;
 import org.leo.zeng.core.enums.ClientType;
 import org.leo.zeng.core.enums.Regular;
 import org.leo.zeng.core.exception.ClientException;
 import org.leo.zeng.core.exception.ServiceException;
-import org.leo.zeng.core.pojo.BaseObject;
-import org.leo.zeng.core.pojo.JsonModel;
+import org.leo.zeng.core.pojo.BaseView;
 import org.leo.zeng.core.pojo.MsgInfo;
+import org.leo.zeng.core.pojo.RespDate;
 import org.leo.zeng.core.pojo.UserInfo;
 import org.leo.zeng.core.support.MessageSourceAccessor;
 import org.leo.zeng.core.util.SpringUtil;
@@ -28,45 +27,46 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 public class BaseController {
     @Autowired
     protected MessageSourceAccessor msa;
-    @Autowired
-    protected SysConfig sysConfig;
 
-    protected JsonModel success(BaseObject data) {
-        JsonModel view = new JsonModel(MessageCode.SUCCESS, msa.getMessage(MessageCode.SUCCESS));
-        view.setData(data);
-        return view;
+    protected RespDate success(BaseView response) {
+        RespDate resp = new RespDate(MessageCode.SUCCESS, msa.getMessage(MessageCode.SUCCESS));
+        resp.setResponse(response);
+        return resp;
     }
 
-    protected JsonModel success(MsgInfo msg, BaseObject data) {
-        JsonModel view = new JsonModel(msg.getCode(), msg.getMessage());
-        view.setData(data);
-        return view;
+    protected RespDate success(MsgInfo msg, BaseView response) {
+        RespDate resp = new RespDate(msg.getCode(), msg.getMessage());
+        resp.setResponse(response);
+        return resp;
     }
 
-    protected JsonModel failure(Throwable e, String code) {
+    protected RespDate failure(String code, Throwable e, Logger logger) {
         if (e instanceof ClientException) {
+            logger.error(e.getMessage());
             return failure((ClientException) e);
         } else if (e instanceof ServiceException) {
+            logger.error(e.getMessage());
             return failure(code);
         } else {
+            logger.error(e.getMessage(), e);
             return error();
         }
     }
 
-    private JsonModel failure(ClientException e) {
-        return new JsonModel(e.getMsg());
+    private RespDate failure(ClientException e) {
+        return new RespDate(e.getMsg());
     }
 
-    private JsonModel failure(String code) {
-        JsonModel view = new JsonModel();
+    private RespDate failure(String code) {
+        RespDate resp = new RespDate();
         String name = msa.getMessage(code);
-        view.setCode(MessageCode.S9998);
-        view.setMessage(msa.getMessage(MessageCode.S9998, name));
-        return view;
+        resp.setCode(MessageCode.S9998);
+        resp.setMessage(msa.getMessage(MessageCode.S9998, name));
+        return resp;
     }
 
-    private JsonModel error() {
-        return new JsonModel(MessageCode.S9999, msa.getMessage(MessageCode.S9999));
+    private RespDate error() {
+        return new RespDate(MessageCode.S9999, msa.getMessage(MessageCode.S9999));
     }
 
     protected void log(Throwable e, Logger logger) {
@@ -125,10 +125,9 @@ public class BaseController {
 
     protected ClientType getClientType() {
         HttpServletRequest request = getRequest();
-        SysConfig config = SpringUtil.getBean(SysConfig.class);
-        String appPrefix = config.getAppPrefix();
+        String appPrefix = SpringUtil.getValue(SysConstants.APP_PREFIX);
         String userAgent = request.getHeader("USER-AGENT").toLowerCase();
-        if (StringUtils.startsWith(userAgent, appPrefix + "/")) {
+        if (StringUtils.isNotBlank(appPrefix) && StringUtils.startsWith(userAgent, appPrefix + "/")) {
             return ClientType.APP;
         }
         Matcher mobile = Regular.USER_AGENT_MOBILE.pattern(Pattern.CASE_INSENSITIVE).matcher(userAgent);
@@ -143,7 +142,7 @@ public class BaseController {
     }
 
     protected UserInfo getUserInfo() throws ClientException {
-        UserInfo user = (UserInfo) getSession().getAttribute(SecurityConfig.USER_INFO);
+        UserInfo user = (UserInfo) getSession().getAttribute(SysConstants.USER_INFO);
         if (user == null) {
             throw new ClientException(MessageCode.S9997, msa.getMessage(MessageCode.S9997));
         }
@@ -151,7 +150,7 @@ public class BaseController {
     }
 
     protected String getCaptcha() {
-        return (String) getSession().getAttribute(SecurityConfig.CAPTCHA);
+        return (String) getSession().getAttribute(SysConstants.CAPTCHA);
     }
 
     protected String getBasePath() {

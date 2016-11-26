@@ -82,8 +82,21 @@ public class SpringUtil implements ApplicationContextAware, EmbeddedValueResolve
      * @param name 键名
      * @return 键值
      */
-    public static String getPropertiesValue(String name) {
-        return resolver.resolveStringValue(name);
+    public static String getValue(String name) {
+        if (name == null) {
+            return null;
+        }
+        String key = null;
+        if (name.startsWith("${") && name.endsWith("}")) {
+            key = name;
+        } else {
+            key = "${" + name + "}";
+        }
+        String value = resolver.resolveStringValue(key);
+        if (!name.equals(value)) {
+            return value;
+        }
+        return null;
     }
 
 }

@@ -1,32 +1,30 @@
 package org.leo.zeng.core.pojo;
 
 @SuppressWarnings("serial")
-public class JsonModel extends BaseObject {
+public class RespDate extends BaseObject {
     /** 返回码 */
     private String code;
     /** 返回消息 */
     private String message;
     /** 返回数据 */
-    private BaseObject data;
+    private BaseView response;
 
-    public JsonModel() {
-        super();
+    public RespDate() {
+        this(new MsgInfo());
     }
 
-    public JsonModel(MsgInfo msg) {
-        super();
-        this.code = msg.getCode();
-        this.message = msg.getMessage();
+    public RespDate(MsgInfo msg) {
+        this(msg.getCode(), msg.getMessage());
     }
 
-    public JsonModel(String code, String message) {
+    public RespDate(String code, String message) {
         this(code, message, null);
     }
 
-    public JsonModel(String code, String message, BaseObject data) {
+    public RespDate(String code, String message, BaseView response) {
         this.code = code;
         this.message = message;
-        this.data = data;
+        this.response = response;
     }
 
     public String getCode() {
@@ -45,11 +43,11 @@ public class JsonModel extends BaseObject {
         this.message = message;
     }
 
-    public BaseObject getData() {
-        return data;
+    public BaseView getResponse() {
+        return response;
     }
 
-    public void setData(BaseObject data) {
-        this.data = data;
+    public void setResponse(BaseView response) {
+        this.response = response;
     }
 }

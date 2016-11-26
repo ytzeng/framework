@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd  
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<description>leo环境切换配置</description>
+	<!-- 开发环境 -->
+	<beans profile="dev">
+		<!-- 配置文件 -->
+		<context:property-placeholder
+			location="classpath*:env/configuration-dev.properties" />
+		<!-- 数据源 -->
+		<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+			<property name="jndiName">
+				<value>java:comp/env/jdbc/devds</value>
+			</property>
+		</bean>
+	</beans>
+	<!-- 集成测试 -->
+	<beans profile="sit">
+		<!-- 配置文件 -->
+		<context:property-placeholder
+			location="classpath*:env/configuration-sit.properties" />
+		<!-- 数据源 -->
+		<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+			<property name="jndiName">
+				<value>java:comp/env/jdbc/sitds</value>
+			</property>
+		</bean>
+	</beans>
+	<!-- 验收测试 -->
+	<beans profile="uat">
+		<!-- 配置文件 -->
+		<context:property-placeholder
+			location="classpath*:env/configuration-uat.properties" />
+		<!-- 数据源 -->
+		<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+			<property name="jndiName">
+				<value>java:comp/env/jdbc/uatds</value>
+			</property>
+		</bean>
+	</beans>
+	<!-- 生产环境 -->
+	<beans profile="pro">
+		<!-- 配置文件 -->
+		<context:property-placeholder
+			location="classpath*:env/configuration-pro.properties" />
+		<!-- 数据源 -->
+		<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+			<property name="jndiName">
+				<value>java:comp/env/jdbc/prods</value>
+			</property>
+		</bean>
+	</beans>
+</beans>
