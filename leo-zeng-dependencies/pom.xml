@@ -51,6 +51,8 @@
 		<jdbcdslog.version>1.0.6.2</jdbcdslog.version>
 		<mybatis.version>3.4.1</mybatis.version>
 		<mybatis-spring.version>1.3.0</mybatis-spring.version>
+		<mybatis-ehcache.version>1.0.0</mybatis-ehcache.version>
+		<mybatis-oscache.version>1.0.0</mybatis-oscache.version>
 		<hibernate.version>5.2.4.Final</hibernate.version>
 		<jersey.version>2.23.2</jersey.version>
 		<mysql.version>5.1.39</mysql.version>
@@ -531,6 +533,16 @@
 				<groupId>org.mybatis</groupId>
 				<artifactId>mybatis-spring</artifactId>
 				<version>${mybatis-spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis-ehcache</artifactId>
+				<version>${mybatis-ehcache.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis-oscache</artifactId>
+				<version>${mybatis-oscache.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.hibernate</groupId>
