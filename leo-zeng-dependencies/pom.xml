@@ -647,6 +647,11 @@
 				<artifactId>leo-zeng-quartz</artifactId>
 				<version>${leo-zeng.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.leo.zeng.framework</groupId>
+				<artifactId>leo-zeng-api</artifactId>
+				<version>${leo-zeng.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 	<build>
