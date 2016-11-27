@@ -6,10 +6,8 @@
 		<artifactId>leo-zeng-dependencies</artifactId>
 		<version>SNAPSHOT</version>
 	</parent>
-	<groupId>org.leo.zeng.framework</groupId>
 	<artifactId>leo-zeng-web</artifactId>
 	<version>SNAPSHOT</version>
-	<name>leo-zeng-web</name>
 	<packaging>jar</packaging>
 	<dependencies>
 		<dependency>

@@ -13,7 +13,6 @@ import org.leo.zeng.core.enums.ClientType;
 import org.leo.zeng.core.enums.Regular;
 import org.leo.zeng.core.exception.ClientException;
 import org.leo.zeng.core.exception.ServiceException;
-import org.leo.zeng.core.pojo.BaseView;
 import org.leo.zeng.core.pojo.MsgInfo;
 import org.leo.zeng.core.pojo.RespDate;
 import org.leo.zeng.core.pojo.UserInfo;
@@ -28,13 +27,17 @@ public class BaseController {
     @Autowired
     protected MessageSourceAccessor msa;
 
-    protected RespDate success(BaseView response) {
+    protected RespDate success() {
+        return new RespDate(MessageCode.SUCCESS, msa.getMessage(MessageCode.SUCCESS));
+    }
+
+    protected RespDate success(Object response) {
         RespDate resp = new RespDate(MessageCode.SUCCESS, msa.getMessage(MessageCode.SUCCESS));
         resp.setResponse(response);
         return resp;
     }
 
-    protected RespDate success(MsgInfo msg, BaseView response) {
+    protected RespDate success(MsgInfo msg, Object response) {
         RespDate resp = new RespDate(msg.getCode(), msg.getMessage());
         resp.setResponse(response);
         return resp;

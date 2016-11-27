@@ -2,6 +2,7 @@ package org.leo.zeng.core.support;
 
 import java.util.List;
 import org.leo.zeng.core.pojo.BaseEntity;
+import org.leo.zeng.core.pojo.BaseObject;
 import org.leo.zeng.core.pojo.BaseQuery;
 import org.leo.zeng.core.pojo.Paging;
 
@@ -51,5 +52,5 @@ public interface BaseDao<Entity extends BaseEntity> {
      * @param param 查询条件
      * @return 查询结果
      */
-    public Paging<Entity> selectPaging(BaseQuery param);
+    public Paging<BaseObject> selectPaging(BaseQuery param);
 }

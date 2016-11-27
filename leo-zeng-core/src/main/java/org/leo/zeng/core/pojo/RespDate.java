@@ -7,7 +7,7 @@ public class RespDate extends BaseObject {
     /** 返回消息 */
     private String message;
     /** 返回数据 */
-    private BaseView response;
+    private Object response;
 
     public RespDate() {
         this(new MsgInfo());
@@ -21,7 +21,7 @@ public class RespDate extends BaseObject {
         this(code, message, null);
     }
 
-    public RespDate(String code, String message, BaseView response) {
+    public RespDate(String code, String message, Object response) {
         this.code = code;
         this.message = message;
         this.response = response;
@@ -43,11 +43,11 @@ public class RespDate extends BaseObject {
         this.message = message;
     }
 
-    public BaseView getResponse() {
+    public Object getResponse() {
         return response;
     }
 
-    public void setResponse(BaseView response) {
+    public void setResponse(Object response) {
         this.response = response;
     }
 }

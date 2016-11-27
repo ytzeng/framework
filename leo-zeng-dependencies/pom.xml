@@ -8,8 +8,6 @@
 	<version>SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>java project dependencies</name>
-
 	<developers>
 		<developer>
 			<id>leoz</id>
@@ -613,6 +611,11 @@
 			<dependency>
 				<groupId>org.leo.zeng.framework</groupId>
 				<artifactId>leo-zeng-web</artifactId>
+				<version>${leo-zeng.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.leo.zeng.framework</groupId>
+				<artifactId>leo-zeng-mybatis</artifactId>
 				<version>${leo-zeng.version}</version>
 			</dependency>
 		</dependencies>
