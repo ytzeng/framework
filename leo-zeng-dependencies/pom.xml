@@ -54,6 +54,7 @@
 		<hibernate.version>5.2.4.Final</hibernate.version>
 		<jersey.version>2.23.2</jersey.version>
 		<mysql.version>5.1.39</mysql.version>
+		<ehcache.version>2.10.3</ehcache.version>
 
 		<!-- leo zeng jar -->
 		<leo-zeng.version>SNAPSHOT</leo-zeng.version>
@@ -600,6 +601,11 @@
 				<groupId>mysql</groupId>
 				<artifactId>mysql-connector-java</artifactId>
 				<version>${mysql.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.sf.ehcache</groupId>
+				<artifactId>ehcache</artifactId>
+				<version>${ehcache.version}</version>
 			</dependency>
 
 			<!-- leo zeng jar -->

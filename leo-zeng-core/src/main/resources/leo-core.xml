@@ -4,6 +4,7 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:util="http://www.springframework.org/schema/util" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:cache="http://www.springframework.org/schema/cache"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
@@ -11,9 +12,19 @@
 		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
-		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-3.2.xsd">
 
 	<description>leo core配置</description>
+	<!-- 启用缓存注解功能 -->
+	<cache:annotation-driven cache-manager="ehcacheManager" />
+	<bean id="ehcacheManagerFactory"
+		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:ehcache.xml" />
+	</bean>
+	<bean id="ehcacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+		<property name="cacheManager" ref="ehcacheManagerFactory" />
+	</bean>
 	<!-- 消息配置 -->
 	<bean id="messageSource" class="org.leo.zeng.core.support.MultipleMessageSource">
 		<property name="defaultEncoding" value="UTF-8" />
