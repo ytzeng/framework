@@ -55,6 +55,7 @@
 		<jersey.version>2.23.2</jersey.version>
 		<mysql.version>5.1.39</mysql.version>
 		<ehcache.version>2.10.3</ehcache.version>
+		<quartz.version>2.2.3</quartz.version>
 
 		<!-- leo zeng jar -->
 		<leo-zeng.version>SNAPSHOT</leo-zeng.version>
@@ -607,6 +608,11 @@
 				<artifactId>ehcache</artifactId>
 				<version>${ehcache.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.quartz-scheduler</groupId>
+				<artifactId>quartz</artifactId>
+				<version>${quartz.version}</version>
+			</dependency>
 
 			<!-- leo zeng jar -->
 			<dependency>
@@ -622,6 +628,11 @@
 			<dependency>
 				<groupId>org.leo.zeng.framework</groupId>
 				<artifactId>leo-zeng-mybatis</artifactId>
+				<version>${leo-zeng.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.leo.zeng.framework</groupId>
+				<artifactId>leo-zeng-quartz</artifactId>
 				<version>${leo-zeng.version}</version>
 			</dependency>
 		</dependencies>
