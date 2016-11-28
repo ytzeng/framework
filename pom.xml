@@ -654,13 +654,6 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	<modules>
-		<module>leo-zeng-core</module>
-		<module>leo-zeng-web</module>
-		<module>leo-zeng-mybatis</module>
-		<module>leo-zeng-quartz</module>
-		<module>leo-zeng-api</module>
-	</modules>
 	<build>
 		<plugins>
 			<plugin>
