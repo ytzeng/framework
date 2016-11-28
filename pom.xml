@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.leo.zeng.framework</groupId>
-	<artifactId>leo-zeng-dependencies</artifactId>
+	<artifactId>leo-zeng-boot</artifactId>
 	<version>SNAPSHOT</version>
 	<packaging>pom</packaging>
 
@@ -654,6 +654,13 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+	<modules>
+		<module>leo-zeng-core</module>
+		<module>leo-zeng-web</module>
+		<module>leo-zeng-mybatis</module>
+		<module>leo-zeng-quartz</module>
+		<module>leo-zeng-api</module>
+	</modules>
 	<build>
 		<plugins>
 			<plugin>
