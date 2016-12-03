@@ -22,8 +22,10 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 public class BaseController {
+    protected final static String RESP_DATA = "respDate";
     @Autowired
     protected MessageSourceAccessor msa;
 
@@ -37,10 +39,22 @@ public class BaseController {
         return resp;
     }
 
+    protected ModelAndView success(String page, Object response) {
+        ModelAndView result = new ModelAndView(page);
+        result.addObject(RESP_DATA, success(response));
+        return result;
+    }
+
     protected RespDate success(MsgInfo msg, Object response) {
         RespDate resp = new RespDate(msg.getCode(), msg.getMessage());
         resp.setResponse(response);
         return resp;
+    }
+
+    protected ModelAndView success(String page, MsgInfo msg, Object response) {
+        ModelAndView result = new ModelAndView(page);
+        result.addObject(RESP_DATA, success(msg, response));
+        return result;
     }
 
     protected RespDate failure(String code, Throwable e, Logger logger) {
@@ -54,6 +68,12 @@ public class BaseController {
             logger.error(e.getMessage(), e);
             return error();
         }
+    }
+
+    protected ModelAndView failure(String page, String code, Throwable e, Logger logger) {
+        ModelAndView result = new ModelAndView(page);
+        result.addObject(RESP_DATA, failure(code, e, logger));
+        return result;
     }
 
     private RespDate failure(ClientException e) {
