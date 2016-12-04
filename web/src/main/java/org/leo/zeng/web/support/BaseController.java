@@ -1,11 +1,5 @@
 package org.leo.zeng.web.support;
 
-import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.StringUtils;
 import org.leo.zeng.core.consts.MessageCode;
 import org.leo.zeng.core.consts.SysConstants;
@@ -24,8 +18,15 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class BaseController {
-    protected final static String RESP_DATA = "respDate";
+    protected final static String RESP_DATA = "respData";
     @Autowired
     protected MessageSourceAccessor msa;
 
@@ -33,21 +34,21 @@ public class BaseController {
         return new RespDate(MessageCode.SUCCESS, msa.getMessage(MessageCode.SUCCESS));
     }
 
-    protected RespDate success(Object response) {
+    protected RespDate success(Object data) {
         RespDate resp = new RespDate(MessageCode.SUCCESS, msa.getMessage(MessageCode.SUCCESS));
-        resp.setResponse(response);
+        resp.setData(data);
         return resp;
     }
 
-    protected ModelAndView success(String page, Object response) {
+    protected ModelAndView success(String page, Object data) {
         ModelAndView result = new ModelAndView(page);
-        result.addObject(RESP_DATA, success(response));
+        result.addObject(RESP_DATA, success(data));
         return result;
     }
 
-    protected RespDate success(MsgInfo msg, Object response) {
+    protected RespDate success(MsgInfo msg, Object data) {
         RespDate resp = new RespDate(msg.getCode(), msg.getMessage());
-        resp.setResponse(response);
+        resp.setData(data);
         return resp;
     }
 
